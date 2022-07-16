@@ -35,9 +35,12 @@ function App() {
           id="sizes"
           name="sizes"
           onChange={(e) => handleGridChange(e.target.value)}
+          aria-label="grid-size"
         >
           {gridSizes.map((size) => (
-            <option value={size}>{size}</option>
+            <option value={size}>
+              {size} x {size} grid
+            </option>
           ))}
         </select>
 
