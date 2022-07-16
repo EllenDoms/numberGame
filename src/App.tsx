@@ -31,14 +31,14 @@ function App() {
       <div className={`flex flex-col gap-8 ${isExploding && 'blur-sm'}`}>
         <Header />
         <select
-          className="outline-none px-4 py-2 rounded-sm"
+          className="outline-none px-4 py-2 rounded-sm border-r-8 border-transparent"
           id="sizes"
           name="sizes"
           onChange={(e) => handleGridChange(e.target.value)}
           aria-label="grid-size"
         >
           {gridSizes.map((size) => (
-            <option value={size}>
+            <option key={size} value={size}>
               {size} x {size} grid
             </option>
           ))}
