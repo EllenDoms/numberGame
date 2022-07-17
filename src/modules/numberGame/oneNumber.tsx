@@ -11,7 +11,7 @@ export function OneNumber({ number, onClick }: Props) {
   ) : (
     <div
       onClick={onClick}
-      className="text-xl cursor-pointer select-none rounded-lg text-teal-900 px-10 py-8 border-4 border-l-white border-t-white border-b-slate-300 border-r-slate-300 bg-slate-50 hover:border-6 hover:px-10 hover:py-8"
+      className="text-xl cursor-pointer select-none rounded-lg text-teal-900 px-10 py-8 border-4 border-l-white border-t-white border-b-slate-300 border-r-slate-300 bg-slate-100 hover:border-6 hover:px-10 hover:py-8"
     >
       {number}
     </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NumberGame } from './modules/numberGame';
 import { Header } from './components/header';
 import Confetti from './components/confetti';
+import { useNeighborsOfZero } from './hooks/useNeighborsOfZero';
 
 export type gridSize = 3 | 4 | 5 | 6;
 const gridSizes = [3, 4, 5, 6];
@@ -58,9 +59,33 @@ function App() {
 export default App;
 
 export function loadNewNumbers(gridSize: number) {
+  // get solution array
   const lastIndex = gridSize * gridSize - 1;
   let start: number[] = [];
-  for (let i = 0; i <= lastIndex; i++) start.push(i);
-  let newArr = start.sort(() => Math.random() - 0.5);
-  return newArr;
+  for (let i = 1; i <= lastIndex; i++) start.push(i);
+  start.push(0);
+
+  const amountOfShuffles = Math.floor(Math.random() * 100);
+  const shuffledArr = ShuffleArray(amountOfShuffles, start, gridSize);
+
+  return shuffledArr;
 }
+
+const ShuffleArray = (amount: number, arr: number[], gridSize: number) => {
+  const neighBorsOfZero = useNeighborsOfZero;
+  let shuffleArr = arr;
+  let previousMove;
+
+  for (let i = 0; i < amount; i++) {
+    const indexZero = shuffleArr.findIndex((number) => number === 0);
+
+    const movableIndexes = neighBorsOfZero({ indexZero, gridSize });
+    previousMove && movableIndexes.splice(movableIndexes.indexOf(previousMove), 1);
+    const random = movableIndexes[Math.floor(Math.random() * movableIndexes.length)];
+
+    shuffleArr[indexZero] = shuffleArr[random];
+    shuffleArr[random] = 0;
+    previousMove = indexZero;
+  }
+  return shuffleArr;
+};
